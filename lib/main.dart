@@ -1,4 +1,5 @@
 import 'package:awesomeapp/pages/homePage.dart';
+import 'package:awesomeapp/pages/home_page_with_fb.dart';
 import 'package:awesomeapp/pages/login_page.dart';
 import 'package:awesomeapp/util/Constants.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,9 @@ Future main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Flutter App",
-    home:
-        Constants.prefs?.getBool("loggedIn") == true ? HomePage() : LoginPage(),
+    home: Constants.prefs?.getBool("loggedIn") == true
+        ? HomePageFB()
+        : LoginPage(),
     theme: ThemeData(primarySwatch: Colors.purple),
     routes: {
       "/login": (context) => LoginPage(),
