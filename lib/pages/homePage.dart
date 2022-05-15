@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'drawer.dart';
 import "package:http/http.dart" as http;
+import "dart:convert";
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,7 +24,8 @@ class _HomePageState extends State<HomePage> {
   getData() async {
     var res = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
-    print(res.body);
+    data = jsonDecode(res.body);
+    setState(() {});
   }
 
   @override
@@ -36,7 +38,16 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: data != null
-            ? SingleChildScrollView(child: Card())
+            ? ListView.builder(
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(data[index]["title"]),
+                    subtitle: Text("ID :  ${data[index]["id"]}"),
+                    leading: Image.network(data[index]["url"]),
+                  );
+                },
+                itemCount: data.length,
+              )
             : const Center(child: CircularProgressIndicator()),
       ),
       drawer: MyDrawer(),
