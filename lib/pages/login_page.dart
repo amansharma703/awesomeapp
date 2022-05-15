@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:awesomeapp/pages/homePage.dart';
+import 'package:awesomeapp/util/Constants.dart';
 import "package:flutter/material.dart";
 
 class LoginPage extends StatefulWidget {
@@ -63,8 +61,9 @@ class _LoginPageState extends State<LoginPage> {
                                     //     context,
                                     //     MaterialPageRoute(
                                     //         builder: (context) => HomePage()));
-
-                                    Navigator.pushNamed(context, "/Home");
+                                    Constants.prefs?.setBool("loggedIn", true);
+                                    Navigator.pushReplacementNamed(
+                                        context, "/home");
                                   },
                                   child: const Text("Sign In",
                                       style: TextStyle(
